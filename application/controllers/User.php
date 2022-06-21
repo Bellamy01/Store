@@ -8,7 +8,7 @@ class User extends CI_Controller{
         $users = $this->User_model->display();
         $data = array();
         $data['users']= $users;
-       $this->load->view('list',$data); 
+       $this->load->view('store/users/list',$data); 
     }
     function create(){
         $this->load->model('User_model');
@@ -22,7 +22,7 @@ class User extends CI_Controller{
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if($this->form_validation->run()== false){
-            $this->load->view('create');
+            $this->load->view('store/users/create');
         }
         else{
             $formArray = array();
@@ -57,7 +57,7 @@ class User extends CI_Controller{
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if($this->form_validation->run()==false){
-            $this->load->view('edit', $data);
+            $this->load->view('store/users/edit', $data);
         }else{
             $formArray = array();
             $formArray['firstName'] = $this->input->post('fname');

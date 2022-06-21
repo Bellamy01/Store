@@ -22,18 +22,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STORE - DISPLAY PRODUCTS</title>
+    <title>STORE - DISPLAY OUTGOING</title>
 </head>
 
 <body>
     <div class="container">
-        <h3 class="text-dark font-weight-bold">PRODUCTS APPLICATION</h3>
+        <h3 class="text-dark font-weight-bold">OUTGOING APPLICATION</h3>
     </div>
     <div class="row" style="margin-bottom:10px;">
         <div class="col-md-10 offest-1">
             <div class="offset-2">
                 <h3 class="text-secondary font-weight-bold" style="float:left;">Display Data</h3>
-                <a href="<?php echo base_url() . 'Product/create'; ?>" class="btn btn-primary" style="float: right;position:absolute;right:0;">Create</a>
+                <a href="<?php echo base_url() . 'Outgoing/create'; ?>" class="btn btn-primary" style="float: right;position:absolute;right:0;">Create</a>
             </div>
         </div>
     </div>
@@ -57,26 +57,22 @@
                     <tr>
                         <th>ID</th>
                         <th>Product</th>
-                        <th>Brand</th>
-                        <th>Supplier Tel</th>
-                        <th>Supplier</th>
+                        <th>Quantity</th>
                         <th>Added on</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <?php
-                if (!empty($products)) {
-                    foreach ($products as $product) { ?>
+                if (!empty($outgoings)) {
+                    foreach ($outgoings as $outgoing) { ?>
                         <tr>
-                            <td><?php echo $product['productId']; ?></td>
-                            <td><?php echo $product['product_Name']; ?></td>
-                            <td><?php echo $product['brand']; ?></td>
-                            <td><?php echo $product['supplier_phone']; ?></td>
-                            <td><?php echo $product['supplier']; ?></td>
-                            <td><?php echo $product['added_date']; ?></td>
-                            <td><a href="<?php echo base_url() . 'Product/edit/' . $product['productId']; ?>" class="btn btn-primary">Edit</a></td>
-                            <td><a href="<?php echo base_url() . 'Product/delete/' . $product['productId']; ?>" class=" btn btn-danger">Delete</a></td>
+                            <td><?php echo $outgoing['outgoingId']; ?></td>
+                            <td><?php echo $outgoing['productId']; ?></td>
+                            <td><?php echo $outgoing['quantity']; ?></td>
+                            <td><?php echo $outgoing['added_date']; ?></td>
+                            <td><a href="<?php echo base_url() . 'Outgoing/edit/' . $outgoing['outgoingId']; ?>" class="btn btn-primary">Edit</a></td>
+                            <td><a href="<?php echo base_url() . 'Outgoing/delete/' . $outgoing['outgoingId']; ?>" class=" btn btn-danger">Delete</a></td>
                         </tr>
                     <?php }
                 } else { ?>

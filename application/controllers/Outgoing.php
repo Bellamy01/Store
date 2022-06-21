@@ -7,26 +7,30 @@ class Outgoing extends CI_Controller
     function index()
     {
         $this->load->model('Outgoing_model');
+        $products = $this->Outgoing_model->displayProduct();
+        $productsData = array();
+        $productsData['products']= $products;
         $outgoings = $this->Outgoing_model->display();
         $data = array();
-        $data['outgoing'] = $outgoings;
-        $this->load->view('outgoings/list', $data);
+        $data['outgoings'] = $outgoings;
+        $this->load->view('outgoings/list', $data,$productsData);
     }
+    
     function create()
     {
 
         $this->load->model('Outgoing_model');
-        $products = $this->Outgoing_model->displayProduct();
-        $product = $this->Outgoing_model->getProduct($productId);
-        $this->form_validation->set_rules('productId', 'Product', 'required');
+        $productsData['products'] = $this->Outgoing_model->displayProduct();
+        $this->form_validation->set_rules('product', 'Product', 'required');
         $this->form_validation->set_rules('quantity', 'Quantity', 'required');
 
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('outgoing/create');
+            $this->load->view('outgoings/create',$productsData);
         } else {
+            
             $formArray = array();
-            $formArray['productId'] = $this->input->post('productId');
+            $formArray['productId'] = $this->input->post('products');
             $formArray['quantity'] = $this->input->post('quantity');
 
             $this->Outgoing_model->create($formArray);
@@ -34,41 +38,45 @@ class Outgoing extends CI_Controller
             redirect(base_url() . 'Outgoing/index');
         }
     }
+    //write a function to insert a new outgoing product
+    
 
     function edit($outgoingId)
     {
         $this->load->model('Outgoing_model');
-        $outgoing = $this->Outgoing_model->getProduct($outgoingId);
-        $data  = array();
-        $data['s_outgoing'] = $outgoing;
+        $outgoing = $this->Outgoing_model->getOutgoing($outgoingId);
+        $outgoingData  = array();
+        $outgoingData['outgoing'] = $outgoing;
+        $product = $this->Outgoing_model->displayProduct();
+        $productsData= array(); 
+        $productsData['products'] = $product;
 
-        $this->form_validation->set_rules('productname', 'Product', 'required');
-        $this->form_validation->set_rules('brand', 'Brand', 'required');
-        $this->form_validation->set_rules('telephone', 'Supplier Tel', 'required');
-        $this->form_validation->set_rules('supplier', 'Supplier', 'required');
 
+        $this->form_validation->set_rules('product', 'Product', 'required');
+        $this->form_validation->set_rules('quantity', 'Quantity', 'required');
+        $data = array();
+
+        $data= array($outgoingData,$productsData);
         if ($this->form_validation->run() == false) {
-            $this->load->view('products/edit', $data);
+            $this->load->view('outgoings/edit',$data[0],$data[1]);
         } else {
             $formArray = array();
-            $formArray['product_Name'] = $this->input->post('productname');
-            $formArray['brand'] = $this->input->post('brand');
-            $formArray['supplier_phone'] = $this->input->post('telephone');
-            $formArray['supplier'] = $this->input->post('supplier');
+            $formArray['productId'] = $this->input->post('products');
+            $formArray['quantity'] = $this->input->post('quantity');
 
-            $this->Outgoing_model->updateProduct($outgoingId, $formArray);
+            $this->Outgoing_model->updateOutgoing($outgoingId, $formArray);
 
-            $this->session->set_flashdata('success', 'Product <b>' . $outgoing['product_Name'] . '</b> Updated successfully');
-            redirect(base_url() . 'Product/index');
+            $this->session->set_flashdata('success', 'Outgoing Updated successfully');
+            redirect(base_url() . 'Outgoing/index');
         }
     }
     function delete($outgoingId)
     {
         $this->load->model('Outgoing_model');
-        $outgoing = $this->Outgoing_model->getProduct($outgoingId);
-        $this->Outgoing_model->deleteProduct($outgoingId);
+        $outgoing = $this->Outgoing_model->getOutgoing($outgoingId);
+        $this->Outgoing_model->deleteOutgoing($outgoingId);
 
-        $this->session->set_flashdata('success', 'Product <b>' . $outgoing['product_Name'] . '</b> Deleted successfully');
-        redirect(base_url() . 'Product/index');
+        $this->session->set_flashdata('success', 'Outgoing Deleted successfully');
+        redirect(base_url() . 'Outgoing/index');
     }
 }

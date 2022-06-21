@@ -11,6 +11,10 @@ class Outgoing_model extends CI_model
     {
         return $products = $this->db->get('products')->result_array();
     }
+    function outgoingProducts()
+    {
+        return $outgoingProducts = $this->db->get('outgoingProducts')->result_array();
+    }
     function create($formArray)
     {
         $this->db->insert('outgoing', $formArray);
@@ -26,7 +30,7 @@ class Outgoing_model extends CI_model
     }
     function updateOutgoing($outgoingId, $formArray)
     {
-        $this->db->where('outgoingtId', $outgoingId);
+        $this->db->where('outgoingId', $outgoingId);
         $this->db->update('outgoing', $formArray);
     }
     function deleteOutgoing($outgoingId)

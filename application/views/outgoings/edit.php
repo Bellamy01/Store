@@ -71,12 +71,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STORE - EDIT PRODUCT</title>
+    <title>STORE - INSERT OUTGOING</title>
 </head>
 
 <body>
     <div class="container">
-        <h3 class="text-dark font-weight-bold">PRODUCTS-APPLICATION</h3>
+        <h3 class="text-dark font-weight-bold">OUTGOINGS-APPLICATION</h3>
     </div>
     <?php
     $success = $this->session->userdata('success');
@@ -87,44 +87,33 @@
     }
     ?>
     <div class="card col-md-8 offset-2">
-        <h3 class="text-white text-center font-weight-bold bg-primary bg-gradient">CREATE PRODUCT</h3>
-        <form method="post" name="CreateProduct" action="<?php echo base_url() . 'Product/edit/'.$product['productId']; ?>">
+        <h3 class="text-white text-center font-weight-bold bg-primary bg-gradient">EDIT OUTGOING</h3>
+        <form method="post" name="CreateOutgoing" action="<?php echo base_url() . 'Outgoing/edit/'.$outgoing['outgoingId']; ?>">
             <div class="col-md-6 offset-3 formees">
                 <div class="row mb-3 mt-3">
-                    <div class="col">
-                        <label for="firstname">Product Name</label>
-                        <input type="text" name="productname" class="form-control" value="<?php echo set_value('productname',$product['product_Name']); ?>" placeholder="Enter Product">
-                        <?php
-                        echo "<b>" . form_error('productname') . "</b>";
-                        ?>
-                    </div>
-                    <div class="col">
-                        <label for="lastname">Brand</label>
-                        <input type="text" name="brand" class="form-control" value="<?php echo set_value('brand',$product['brand']); ?>" placeholder="Enter Brand">
-                        <?php
-                        echo "<b>" . form_error('brand') . "</b>";
-                        ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="telephone"> Supplier Tel</label>
-                    <input type="text" name="telephone" class="form-control" value="<?php echo set_value('telephone',$product['supplier_phone']); ?>" placeholder="Enter telephone">
+                    <label for="products">Products</label><br>
+                    <select name="products" class="form-select form-control">
+                        <option value=" <?php echo set_value('products',$outgoing['productId']); ?> "></option>
+                        <?php if (!empty($products)) {
+                            foreach ($products as $product) { ?>
+                                <option value=" <?php echo $product['productId']; ?>" <?php if($product['productId'] == $outgoing['productId']){ echo 'selected';}?> > <?php echo $product['product_Name']; ?></option>
+                            <?php }
+                        } else { ?>
+                            <option value="" class="alert alert-danger text-center">No Products found</option>
+                        <?php } ?>
+                    </select>
                     <?php
-                    echo "<b>" . form_error('telephone') . "</b>";
+                    echo "<b>".form_error('products')."</b>";
                     ?>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="username">Supplier</label>
-                    <input type="text" name="supplier" class="form-control" placeholder="Enter supplier" value="<?php echo set_value('supplier',$product['supplier']); ?>">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" name="quantity" class="form-control" value="<?php echo set_value('quantity',$outgoing['quantity']); ?>" placeholder="Enter quantity">
                     <?php
-                    echo "<b>" . form_error('supplier') . "</b>";
+                    echo "<b>" . form_error('quantity') . "</b>";
                     ?>
                 </div>
                 <div class="row form-group">
-                    <button class="btn btn-primary">Update</button>
-                    <a href="<?php echo base_url() . 'Product/index'; ?>" class="btn btn-secondary ml-3">Cancel</a>
+                    <button class="btn btn-primary">Edit</button>
+                    <a href="<?php echo base_url() . 'Outgoing/index'; ?>" class="btn btn-secondary ml-3">Cancel</a>
                 </div>
             </div>
         </form>

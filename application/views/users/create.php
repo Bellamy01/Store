@@ -88,7 +88,7 @@
     ?>
     <div class="card col-md-8 offset-2">
         <h3 class="text-white text-center font-weight-bold bg-primary bg-gradient">CREATE USER</h3>
-        <form method="post" name="CreateUser" action="<?php echo base_url() . 'User/create'; ?>">
+        <form method="post" name="CreateUser" action=" <?php echo base_url() . 'User/create'; ?> ">
             <div class="col-md-6 offset-3 formees">
                 <div class="row mb-3 mt-3">
                     <div class="col">

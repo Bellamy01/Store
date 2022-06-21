@@ -8,7 +8,7 @@ class Product extends CI_Controller{
         $products = $this->Product_model->display();
         $data = array();
         $data['products']= $products;
-       $this->load->view('products/list',$data); 
+       $this->load->view('store/products/list',$data); 
     }
     function create(){
         $this->load->model('Product_model');
@@ -19,7 +19,7 @@ class Product extends CI_Controller{
 
 
         if($this->form_validation->run()== false){
-            $this->load->view('products/create');
+            $this->load->view('store/products/create');
         }
         else{
             $formArray = array();
@@ -46,7 +46,7 @@ class Product extends CI_Controller{
         $this->form_validation->set_rules('supplier', 'Supplier', 'required');
        
         if($this->form_validation->run()==false){
-            $this->load->view('products/edit', $data);
+            $this->load->view('store/products/edit', $data);
         }else{
             $formArray = array();
             $formArray['product_Name'] = $this->input->post('productname');
